@@ -16,6 +16,7 @@ public class CustomerRestController {
     private CustomerService customerService;
 
 
+    // GET
     @GetMapping("/customers")
     public List<Customer> getCustomers(){
 
@@ -23,13 +24,10 @@ public class CustomerRestController {
         return this.customerService.getCustomers();
     }
 
-    @GetMapping("/add-customer-form")
-    public String addCustomerForm(){
+    @GetMapping("/customers/{id}")
+    public Customer getCustomer(@PathVariable int id){
 
-        // Creating model attribute to bind form data
-        Customer customer = new Customer();
-
-        return "customers/add-customer-form";
+        return this.customerService.getCustomer(id);
     }
 
     @PostMapping("add-customer")

@@ -15,7 +15,7 @@
     </style>
 </head>
 <body>
-    <div class="container" style="margin-top: 10%;">
+    <div class="container" style="margin-top: 5%;">
         <h1>Welcome to Spring CRM REST project!</h1>
         <p class="text">This is a Customer Relation Management built with Spring MVC (REST). Here you can retrieve
         Customer data from a physical database (MySQL 8.0), feel free to play with!</p>
