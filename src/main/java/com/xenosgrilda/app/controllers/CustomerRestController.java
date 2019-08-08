@@ -1,10 +1,13 @@
 package com.xenosgrilda.app.controllers;
 
 import com.xenosgrilda.app.entities.Customer;
+import com.xenosgrilda.app.exceptions.CustomerNotFoundException;
 import com.xenosgrilda.app.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -27,35 +30,17 @@ public class CustomerRestController {
     @GetMapping("/customers/{id}")
     public Customer getCustomer(@PathVariable int id){
 
-        return this.customerService.getCustomer(id);
-    }
+        // This is kinda tricky, if the customer is not found, it returns null, and the Jackson will convert it to a
+        // empty response body! not and Error! Also if id receives a string value it will also crash!
 
-    @PostMapping("add-customer")
-    public String addCustomer(@ModelAttribute("customer") Customer customer){
-
-        if (customer != null){
-            this.customerService.saveCustomer(customer);
-        }
-
-        return "redirect:/customer/list";
-    }
-
-    @GetMapping("edit-customer-form")
-    public String editCustomerForm(@RequestParam(value = "customerId", required = true) int id, Model model){
-        // Getting customer from database and assigning it to model attribute
         Customer customer = this.customerService.getCustomer(id);
-        model.addAttribute("editCustomer", customer);
-
-        return "customers/edit-customer-form";
+        if (customer == null) {
+            throw new CustomerNotFoundException("Customer ID not found");
+        }else {
+            return customer;
+        }
     }
 
-    @GetMapping("/delete")
-    public String deleteCustomerById(@RequestParam(value = "customerId", required = true) int id){
-        // Deleting customer from database
-        this.customerService.deleteCustomer(id);
-
-        return "redirect:/customer/list";
-    }
 }
 
 /**
