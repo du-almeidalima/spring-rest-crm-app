@@ -15,11 +15,13 @@ It also follows the [REST API Naming Conventions](https://restfulapi.net/resourc
 This project is for purely academic purposes.
 
 ### Routes
-            GET         /api/customers
-            GET         /api/customers/{id}
-            POST        /api/customers
-            DELETE      /api/customers/{id}
-            PUT         /api/customers/{id}
+
+*  **GET**         /api/customers           <br>
+*  **GET**         /api/customers/{id}      <br>
+*  **POST**        /api/customers           <br>
+*  **DELETE**      /api/customers/{id}      <br>
+*  **PUT**         /api/customers/{id}      <br>
+
 
 #### MySQL Database
 

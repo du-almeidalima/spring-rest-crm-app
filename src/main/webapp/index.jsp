@@ -19,7 +19,7 @@
         <h1>Welcome to Spring CRM REST project!</h1>
         <p class="text">This is a Customer Relation Management built with Spring MVC (REST). Here you can retrieve
         Customer data from a physical database (MySQL 8.0), feel free to play with!</p>
-        <p>You can also check the project in this <a href="https://github.com/FasterXML/jackson" target="_blank">repo</a>.</p>
+        <p>You can also check the project in this <a href="https://github.com/Xenosgrilda/spring-rest-crm-app" target="_blank">repo</a>.</p>
 
         <h2>Routes</h2>
         <ul style="position: relative; width: 60%;">
