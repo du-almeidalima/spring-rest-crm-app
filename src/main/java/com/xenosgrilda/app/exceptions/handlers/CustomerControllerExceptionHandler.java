@@ -1,5 +1,6 @@
 package com.xenosgrilda.app.exceptions.handlers;
 
+import com.xenosgrilda.app.exceptions.CustomerEmptyBodyException;
 import com.xenosgrilda.app.exceptions.CustomerExceptionResponse;
 import com.xenosgrilda.app.exceptions.CustomerNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ public class CustomerControllerExceptionHandler {
         this.zoneId = ZoneId.of("America/Sao_Paulo");
     }
 
+    // CustomerNotFound
     @ExceptionHandler
     public ResponseEntity<CustomerExceptionResponse> handleCustomerException(CustomerNotFoundException exc) {
 
@@ -32,6 +34,20 @@ public class CustomerControllerExceptionHandler {
         response.setTimeStamp(LocalDate.now(this.zoneId).toString());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND); // Jackson will convert it to JSON!
+    }
+
+    // CustomerEmptyBody
+    @ExceptionHandler
+    ResponseEntity<CustomerExceptionResponse> handleCustomerEmptyException(CustomerEmptyBodyException exc){
+
+        // Creating the response body
+        CustomerExceptionResponse response = new CustomerExceptionResponse();
+
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setMessage(exc.getMessage());
+        response.setTimeStamp(LocalDate.now(this.zoneId).toString());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     // Since this exceptions accepts "Exception", in parameter, it will be treated as a generic exception handler

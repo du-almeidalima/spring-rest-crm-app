@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class CustomerDaoImpl implements CustomerDAO {
     public List<Customer> getCustomers() {
         Session session = this.sessionFactory.getCurrentSession();
 
-        // Spring will look for this class based on "setPackagesToScan()" on AppConfig
+        // Spring will look for this class(Customer) based on "setPackagesToScan()" on AppConfig
         Query<Customer> query = session.createQuery("FROM Customer ORDER BY lastName", Customer.class);
 
         List<Customer> customers = query.getResultList();
@@ -36,11 +37,11 @@ public class CustomerDaoImpl implements CustomerDAO {
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
+    public void addCustomer(@RequestBody Customer newCustomer) {
 
         Session session = this.sessionFactory.getCurrentSession();
 
-        session.saveOrUpdate(customer); // Basically ABAP "MODIFY"
+        session.saveOrUpdate(newCustomer); // Basically ABAP "MODIFY"
     }
 
     @Override
@@ -56,7 +57,11 @@ public class CustomerDaoImpl implements CustomerDAO {
 }
 
 /**
- * Session Factory : Note that this field name should be the same as the SessionFactory ID defined in the dispatcher-servlet.xml
- * @Repository :  This is also a spring-framework's annotation. When you annotate a class @Repository, spring container understands it's a DAO class and translates
- * all unchecked exceptions (thrown from DAO methods) into Spring DataAccessException. DAO class is the class where you write methods to perform operations over db.
+ * Session Factory : Note that this field name should be the same as the SessionFactory ID defined in the
+ * dispatcher-servlet.xml
+ *
+ * @Repository :  This is also a spring-framework's annotation. When you annotate a class @Repository, spring container
+ * understands it's a DAO class and translates all unchecked exceptions (thrown from DAO methods) into
+ * Spring DataAccessException. DAO class is the class where you write methods to perform operations over db.
  */
+

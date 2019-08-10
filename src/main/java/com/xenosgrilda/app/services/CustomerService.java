@@ -9,7 +9,7 @@ public interface CustomerService {
 
     Customer getCustomer(int id);
 
-    void saveCustomer(Customer customer);
+    void addCustomer(Customer customer);
 
     void deleteCustomer(int id);
 }

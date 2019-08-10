@@ -8,7 +8,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private int id;
 
     @Column(name = "first_name")
@@ -27,6 +27,7 @@ public class Customer {
     }
 
     public void setId(int id) {
+        System.out.println("Setting ID to: " + id);
         this.id = id;
     }
 
@@ -35,6 +36,7 @@ public class Customer {
     }
 
     public void setFirstName(String firstName) {
+        System.out.println("Setting firstName to: " + firstName);
         this.firstName = firstName;
     }
 
@@ -43,6 +45,7 @@ public class Customer {
     }
 
     public void setLastName(String lastName) {
+        System.out.println("Setting lastName to: " + lastName);
         this.lastName = lastName;
     }
 
@@ -51,6 +54,7 @@ public class Customer {
     }
 
     public void setEmail(String email) {
+        System.out.println("Setting email to: " + email);
         this.email = email;
     }
 
