@@ -52,7 +52,7 @@ public class CustomerRestController {
         // 0 we prevent a Customer from being updated by using this method, so Hibernate will always perform an INSERT
         newCustomer.setId(0);
 
-        if (!this.validateCustomer(newCustomer)) {
+        if (this.validateCustomer(newCustomer)) {
 
             throw new CustomerEmptyBodyException("Customer must have a First Name and a Last Name");
 
@@ -71,7 +71,7 @@ public class CustomerRestController {
         // Remember in the "addCustomer", we needed to assign an "fake" id of 0 to prevent the Customer from being
         // updated, here we're doing the opposite, we're taking the new Customer data with @RequestBody by the help
         // of Jackson, and updating it based on the "id" that is coming from the request body
-        if (!this.validateCustomer(updatedCustomer)) {
+        if (this.validateCustomer(updatedCustomer)) {
             throw new CustomerEmptyBodyException("Customer must have a First Name and a Last Name");
         } else {
             // the "addCustomer" make use of saveOrUpdate method
@@ -105,7 +105,7 @@ public class CustomerRestController {
     // Helper method
     private boolean validateCustomer(Customer customer) {
 
-        return customer.getFirstName() != null && customer.getLastName() != null;
+        return customer.getFirstName() == null || customer.getLastName() == null;
     }
 }
 

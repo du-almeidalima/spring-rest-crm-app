@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
@@ -33,6 +34,9 @@ public class AppConfig implements WebMvcConfigurer {
     // Setting Logger (Optional)
     private Logger logger = Logger.getLogger(getClass().getName());
 
+    // ======================================================================
+    // =                            Bean Configs                            =
+    // ======================================================================
     @Bean
     public DataSource dataSource() {
 
@@ -93,6 +97,29 @@ public class AppConfig implements WebMvcConfigurer {
 
         return txManager;
     }
+
+
+    // ======================================================================
+    // =                         Resource Configs                           =
+    // ======================================================================
+
+    // I'm using this class to map our static resources files to be served by our app, this is the same as
+    // <mvc:resources mapping="/resources/**" location="/resources/" />
+    // But with some more features, check: https://www.baeldung.com/spring-mvc-static-resources
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // This will map a external URI to the "webapp/resources" folder
+        registry
+                .addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/static");
+    }
+
+
+
+
+    // ======================================================================
+    // =                         Helper Functions                           =
+    // ======================================================================
 
     // Custom method to convert returned properties values to int
     private int parsePropertyInt(String propName) {
